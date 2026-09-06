@@ -17,6 +17,7 @@ export const FairPricingScreen: React.FC<FairPricingScreenProps> = ({
   const [isListeningVoice, setIsListeningVoice] = useState(false);
 
   const isHindi = language === 'hi';
+  const isTamil = language === 'ta';
 
   const updatePrice = (delta: number) => {
     setCurrentPrice(prev => Math.max(1000, Math.min(4000, prev + delta)));
@@ -24,21 +25,23 @@ export const FairPricingScreen: React.FC<FairPricingScreenProps> = ({
 
   const getPriceStatus = () => {
     if (currentPrice === 1850) {
-      return { text: isHindi ? 'सर्वोत्तम मूल्य' : 'Sweet Spot', color: 'text-[#2c694e]' };
+      return { text: isTamil ? 'சிறந்த விலை' : isHindi ? 'सर्वोत्तम मूल्य' : 'Sweet Spot', color: 'text-[#2c694e]' };
     }
     if (currentPrice >= 1650 && currentPrice <= 1950) {
-      return { text: isHindi ? 'उचित मूल्य सीमा में' : 'In Fair Band', color: 'text-[#2c694e]' };
+      return { text: isTamil ? 'நியாயமான வரம்பு' : isHindi ? 'उचित मूल्य सीमा में' : 'In Fair Band', color: 'text-[#2c694e]' };
     }
     if (currentPrice < 1650) {
-      return { text: isHindi ? 'लागत से कम मार्जिन' : 'Below Fair Margin', color: 'text-[#ba1a1a]' };
+      return { text: isTamil ? 'குறைந்த லாபம்' : isHindi ? 'लागत से कम मार्जिन' : 'Below Fair Margin', color: 'text-[#ba1a1a]' };
     }
-    return { text: isHindi ? 'प्रीमियम दर' : 'Premium Rate', color: 'text-[#7b542b]' };
+    return { text: isTamil ? 'பிரீமியம் விலை' : isHindi ? 'प्रीमियम दर' : 'Premium Rate', color: 'text-[#7b542b]' };
   };
 
   const handleVoicePrice = () => {
     setIsListeningVoice(true);
     speakText(
-      isHindi
+      isTamil
+        ? 'கேட்கிறேன்... நீங்கள் விரும்பும் விலையைக் கூறுங்கள்.'
+        : isHindi
         ? 'सुन रहा हूँ... अपनी पसंद का मूल्य बोलें।'
         : 'Listening... Speak your desired price.',
       language
@@ -48,7 +51,7 @@ export const FairPricingScreen: React.FC<FairPricingScreenProps> = ({
       setIsListeningVoice(false);
       setCurrentPrice(1900);
       speakText(
-        isHindi ? 'मूल्य उन्नीस सौ रुपये तय किया गया।' : 'Price updated to nineteen hundred rupees.',
+        isTamil ? 'விலை ஆயிரத்து தொள்ளாயிரம் ரூபாயாக அமைக்கப்பட்டது.' : isHindi ? 'मूल्य उन्नीस सौ रुपये तय किया गया।' : 'Price updated to nineteen hundred rupees.',
         language
       );
     }, 2500);
@@ -68,14 +71,16 @@ export const FairPricingScreen: React.FC<FairPricingScreenProps> = ({
           </div>
           <div className="flex flex-col">
             <span className="text-[16px] font-bold text-[#181d1a]">
-              {isHindi ? 'उचित मूल्य AI सलाहकार' : 'Fair-Price AI Advisory'}
+              {isTamil ? 'நியாய விலை AI ஆலோசகர்' : isHindi ? 'उचित मूल्य AI सलाहकार' : 'Fair-Price AI Advisory'}
             </span>
             <p className="text-[13px] text-[#57423b] mt-1 leading-snug">
-              {isHindi
+              {isTamil
+                ? 'AI பரிந்துரை மூலப்பொருள் செலவு, உழைப்பு நேரம் மற்றும் சந்தை விகிதங்களை அடிப்படையாகக் கொண்டது. '
+                : isHindi
                 ? 'AI सुझाव सत्यापित सामग्री लागत, श्रम के घंटे और बाज़ार दरों पर आधारित है। '
                 : 'AI recommendation is based on verified material costs, labor hours, and artisan market rates. '}
               <span className="font-bold text-[#181d1a]">
-                {isHindi ? 'अंतिम विक्रय मूल्य पर हमेशा १००% आपका नियंत्रण है।' : 'You are always in 100% control of your final selling price.'}
+                {isTamil ? 'இறுதி விற்பனை விலையில் 100% உங்கள் கட்டுப்பாடே உள்ளது.' : isHindi ? 'अंतिम विक्रय मूल्य पर हमेशा १००% आपका नियंत्रण है।' : 'You are always in 100% control of your final selling price.'}
               </span>
             </p>
           </div>
@@ -312,7 +317,7 @@ export const FairPricingScreen: React.FC<FairPricingScreenProps> = ({
           onClick={() => onConfirmPrice(currentPrice)}
           className="w-full h-14 rounded-full bg-[#9f3c16] hover:bg-[#bf542c] text-white text-[16px] font-bold flex items-center justify-center gap-2 shadow-lg active:scale-98 transition-transform cursor-pointer"
         >
-          <span>{isHindi ? 'मूल्य पक्का करें और लिस्टिंग देखें' : 'Confirm Price & Preview Listing'}</span>
+          <span>{isTamil ? 'விலையை உறுதிசெய்து முன்னோட்டம் காண்க' : isHindi ? 'मूल्य पक्का करें और लिस्टिंग देखें' : 'Confirm Price & Preview Listing'}</span>
           <span className="material-symbols-outlined text-[22px]">arrow_forward</span>
         </button>
 
@@ -322,7 +327,7 @@ export const FairPricingScreen: React.FC<FairPricingScreenProps> = ({
           className="w-full h-12 rounded-full bg-[#ebefea] hover:bg-[#e5e9e4] text-[#181d1a] text-[14px] font-bold flex items-center justify-center gap-2 transition-all cursor-pointer"
         >
           <span className="material-symbols-outlined text-[20px]">edit_note</span>
-          <span>{isHindi ? 'कस्टम सटीक मूल्य दर्ज करें' : 'Set Custom Exact Price'}</span>
+          <span>{isTamil ? 'தனிப்பயன் துல்லிய விலையை உள்ளிடுக' : isHindi ? 'कस्टम सटीक मूल्य दर्ज करें' : 'Set Custom Exact Price'}</span>
         </button>
       </div>
     </div>

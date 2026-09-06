@@ -4,23 +4,27 @@ import { ARTISAN_PROFILE, LOGO_URL } from '../data/crafts';
 import { speakText } from '../utils/speech';
 
 interface HeaderProps {
-  currentTab: MainTab;
+  currentTab?: MainTab;
   language: Language;
   onLanguageChange: (lang: Language) => void;
-  onTabChange: (tab: MainTab) => void;
+  onTabChange?: (tab: MainTab) => void;
   subTitle?: string;
   showBack?: boolean;
   onBack?: () => void;
+  notificationCount?: number;
+  onOpenNotifications?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
-  currentTab,
+  currentTab = 'home',
   language,
   onLanguageChange,
-  onTabChange,
+  onTabChange = (_tab: MainTab) => {},
   subTitle,
   showBack = false,
   onBack,
+  notificationCount = 0,
+  onOpenNotifications,
 }) => {
   const [langMenuOpen, setLangMenuOpen] = useState(false);
 
@@ -29,6 +33,8 @@ export const Header: React.FC<HeaderProps> = ({
       case 'en': return 'English';
       case 'hi': return 'हिन्दी';
       case 'gu': return 'ગુજરાતી';
+      case 'ta': return 'தமிழ்';
+      default: return 'English';
     }
   };
 
@@ -37,7 +43,7 @@ export const Header: React.FC<HeaderProps> = ({
   };
 
   return (
-    <header className="fixed top-0 w-full z-50 pt-safe bg-[#f6fbf5]/90 backdrop-blur-xl shadow-[0_2px_12px_rgba(159,60,22,0.06)] border-b border-[#dfe4df]/50">
+    <header className="sticky top-0 w-full z-40 pt-safe bg-[#f6fbf5]/95 backdrop-blur-xl shadow-[0_2px_12px_rgba(159,60,22,0.06)] border-b border-[#dfe4df]/50">
       <div className="h-20 max-w-md mx-auto px-4 flex items-center justify-between gap-3">
         {/* Left Section: Logo or Back Button */}
         <div className="flex items-center gap-2.5 min-w-0">
@@ -141,6 +147,18 @@ export const Header: React.FC<HeaderProps> = ({
                 >
                   <span>ગુજરાતી (Gujarati)</span>
                   {language === 'gu' && <span className="material-symbols-outlined text-[14px]">check</span>}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    onLanguageChange('ta');
+                    setLangMenuOpen(false);
+                    speakText('தமிழ் மொழி தேர்ந்தெடுக்கப்பட்டது', 'ta');
+                  }}
+                  className={`px-3 py-2 text-left text-xs font-semibold hover:bg-[#f0f5f0] flex items-center justify-between ${language === 'ta' ? 'text-[#9f3c16] bg-[#ffdbcf]/30' : 'text-[#181d1a]'}`}
+                >
+                  <span>தமிழ் (Tamil)</span>
+                  {language === 'ta' && <span className="material-symbols-outlined text-[14px]">check</span>}
                 </button>
               </div>
             )}

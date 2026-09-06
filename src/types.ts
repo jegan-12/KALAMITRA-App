@@ -1,4 +1,4 @@
-export type Language = 'en' | 'hi' | 'gu';
+export type Language = 'en' | 'hi' | 'gu' | 'ta';
 
 export type MainTab = 
   | 'home' 

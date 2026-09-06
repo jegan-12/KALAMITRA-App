@@ -15,7 +15,41 @@ export const BottomNav: React.FC<BottomNavProps> = ({
   language = 'en',
 }) => {
   const isMarket = currentTab === 'market' || currentTab === 'marketplace';
-  const isHindi = language === 'hi';
+
+  const getHomeLabel = () => {
+    if (language === 'hi') return 'होम';
+    if (language === 'gu') return 'હોમ';
+    if (language === 'ta') return 'முகப்பு';
+    return 'Home';
+  };
+
+  const getProductsLabel = () => {
+    if (language === 'hi') return 'कैटलॉग';
+    if (language === 'gu') return 'પ્રોડક્ટ્સ';
+    if (language === 'ta') return 'பொருட்கள்';
+    return 'Products';
+  };
+
+  const getVoiceStudioLabel = () => {
+    if (language === 'hi') return 'आवाज़ से जोड़ें';
+    if (language === 'gu') return 'અવાજથી ઉમેરો';
+    if (language === 'ta') return 'குரல் ஸ்டுடியோ';
+    return 'Voice Studio';
+  };
+
+  const getMarketLabel = () => {
+    if (language === 'hi') return 'बाज़ार';
+    if (language === 'gu') return 'બજાર';
+    if (language === 'ta') return 'சந்தை';
+    return 'Market';
+  };
+
+  const getProfileLabel = () => {
+    if (language === 'hi') return 'प्रोफ़ाइल';
+    if (language === 'gu') return 'પ્રોફાઇલ';
+    if (language === 'ta') return 'சுயவிவரம்';
+    return 'Profile';
+  };
 
   return (
     <nav className="fixed bottom-0 w-full z-40 pb-safe bg-[#f6fbf5]/95 backdrop-blur-xl shadow-[0_-4px_20px_rgba(159,60,22,0.08)] border-t border-[#dfe4df]">
@@ -31,8 +65,8 @@ export const BottomNav: React.FC<BottomNavProps> = ({
           <span className="material-symbols-outlined text-[24px] group-hover:scale-110 transition-transform">
             home
           </span>
-          <span className="text-[12px] leading-tight text-center mt-0.5">
-            {isHindi ? 'होम' : 'Home'}
+          <span className="text-[12px] leading-tight text-center mt-0.5 whitespace-nowrap">
+            {getHomeLabel()}
           </span>
           <span className="text-[10px] text-[#8a726a] leading-none">Dashboard</span>
         </button>
@@ -48,8 +82,8 @@ export const BottomNav: React.FC<BottomNavProps> = ({
           <span className="material-symbols-outlined text-[24px] group-hover:scale-110 transition-transform">
             inventory_2
           </span>
-          <span className="text-[12px] leading-tight text-center mt-0.5">
-            {isHindi ? 'कैटलॉग' : 'Products'}
+          <span className="text-[12px] leading-tight text-center mt-0.5 whitespace-nowrap">
+            {getProductsLabel()}
           </span>
           <span className="text-[10px] text-[#8a726a] leading-none">Listing</span>
         </button>
@@ -65,8 +99,8 @@ export const BottomNav: React.FC<BottomNavProps> = ({
             <span className="material-symbols-outlined text-[32px]">mic</span>
             <span className="material-symbols-outlined text-[16px] absolute top-3 right-3 text-[#ffdbcf]">add</span>
           </button>
-          <span className="text-[11px] text-[#9f3c16] font-bold mt-1 text-center">
-            {isHindi ? 'आवाज़ से जोड़ें' : 'Voice Studio'}
+          <span className="text-[11px] text-[#9f3c16] font-bold mt-1 text-center whitespace-nowrap">
+            {getVoiceStudioLabel()}
           </span>
         </div>
 
@@ -81,8 +115,8 @@ export const BottomNav: React.FC<BottomNavProps> = ({
           <span className="material-symbols-outlined text-[24px] group-hover:scale-110 transition-transform">
             storefront
           </span>
-          <span className="text-[12px] leading-tight text-center mt-0.5">
-            {isHindi ? 'बाज़ार' : 'Market'}
+          <span className="text-[12px] leading-tight text-center mt-0.5 whitespace-nowrap">
+            {getMarketLabel()}
           </span>
           <span className="text-[10px] text-[#8a726a] leading-none">ONDC Direct</span>
         </button>
@@ -98,8 +132,8 @@ export const BottomNav: React.FC<BottomNavProps> = ({
           <span className="material-symbols-outlined text-[24px] group-hover:scale-110 transition-transform">
             person
           </span>
-          <span className="text-[12px] leading-tight text-center mt-0.5">
-            {isHindi ? 'प्रोफ़ाइल' : 'Profile'}
+          <span className="text-[12px] leading-tight text-center mt-0.5 whitespace-nowrap">
+            {getProfileLabel()}
           </span>
           <span className="text-[10px] text-[#8a726a] leading-none">Artisan ID</span>
         </button>

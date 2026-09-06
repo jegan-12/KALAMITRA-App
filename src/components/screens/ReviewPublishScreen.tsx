@@ -28,6 +28,7 @@ export const ReviewPublishScreen: React.FC<ReviewPublishScreenProps> = ({
   });
 
   const isHindi = language === 'hi';
+  const isTamil = language === 'ta';
 
   const handleVoiceStory = () => {
     if (isPlayingStory) {
@@ -38,7 +39,9 @@ export const ReviewPublishScreen: React.FC<ReviewPublishScreenProps> = ({
     } else {
       setIsPlayingStory(true);
       speakText(
-        isHindi
+        isTamil
+          ? 'வணக்கம், என் பெயர் சாந்தி தேவி. மூன்று தலைமுறைகளாக எங்கள் குடும்பம் கட்ச் சிவப்பு களிமண்ணால் பாரம்பரிய கைவினைப் பாண்டங்களைச் சக்கரத்தின் மீது வடிவமைத்து வருகிறது.'
+          : isHindi
           ? 'नमस्ते, मैं शांति देवी हूँ। तीन पीढ़ियों से हमारा परिवार कच्छ की लाल मिट्टी से पारंपरिक पात्र और फूलदान बना रहा है।'
           : 'Namaste, I am Shanti Devi. For three generations, our artisan family in Bhuj has shaped riverbed clay with sacred etched motifs on the potter wheel.',
         language
@@ -58,7 +61,9 @@ export const ReviewPublishScreen: React.FC<ReviewPublishScreenProps> = ({
   const handlePublish = () => {
     setIsPublishing(true);
     speakText(
-      isHindi 
+      isTamil
+        ? 'பட்டியல் ONDC மற்றும் கலாமித்ரா சந்தையில் வெளியிடப்படுகிறது...'
+        : isHindi 
         ? 'कैटलॉग ONDC और कला मित्र पर प्रकाशित किया जा रहा है...' 
         : 'Publishing catalog to ONDC network and Kalamitra guild...',
       language
@@ -68,7 +73,9 @@ export const ReviewPublishScreen: React.FC<ReviewPublishScreenProps> = ({
       setIsPublishing(false);
       setPublished(true);
       speakText(
-        isHindi
+        isTamil
+          ? 'வாழ்த்துகள்! உங்கள் கைவினைப்பொருள் ONDC மற்றும் கலாமித்ராவில் வெற்றிகரமாக வெளியிடப்பட்டது.'
+          : isHindi
           ? 'बधाई हो! आपका शिल्प ONDC और कला मित्र पर सफलतापूर्वक प्रकाशित हो गया है।'
           : 'Congratulations! Your craft is now live on ONDC and Kalamitra Marketplace.',
         language
@@ -88,11 +95,11 @@ export const ReviewPublishScreen: React.FC<ReviewPublishScreenProps> = ({
             verified_user
           </span>
           <p className="text-[12px] text-[#316e52] font-semibold truncate">
-            {isHindi ? '१००% आवाज़-सत्यापित शिल्प कैटलॉग' : '100% Voice-Verified Artisan Catalog'}
+            {isTamil ? '100% குரல் சரிபார்க்கப்பட்ட கைவினைப் பட்டியல்' : isHindi ? '१००% आवाज़-सत्यापित शिल्प कैटलॉग' : '100% Voice-Verified Artisan Catalog'}
           </p>
         </div>
         <span className="text-[12px] px-2.5 py-0.5 rounded-full bg-[#2c694e] text-white font-bold shrink-0">
-          Step 4 of 4
+          {isTamil ? 'படி 4 / 4' : isHindi ? 'चरण ४ / ४' : 'Step 4 of 4'}
         </span>
       </div>
 
@@ -100,10 +107,12 @@ export const ReviewPublishScreen: React.FC<ReviewPublishScreenProps> = ({
         {/* Screen Subheading */}
         <div className="flex flex-col gap-0.5">
           <h2 className="text-[24px] font-bold text-[#181d1a]">
-            {isHindi ? 'समीक्षा और प्रकाशन' : 'Review & Publish'}
+            {isTamil ? 'மதிப்பாய்வு செய்து வெளியிடுங்கள்' : isHindi ? 'समीक्षा और प्रकाशन' : 'Review & Publish'}
           </h2>
           <p className="text-[13px] text-[#8a726a]">
-            {isHindi
+            {isTamil
+              ? 'உள்நாட்டு மற்றும் சர்வதேச வாங்குபவர்களுக்கு வழங்குவதற்கு முன் விவரங்களைச் சரிபார்க்கவும்.'
+              : isHindi
               ? 'घरेलू और वैश्विक खरीदारों को प्रसारित करने से पहले उत्पन्न कैटलॉग विवरण की समीक्षा करें।'
               : 'Review generated catalog details before broadcasting to domestic & global buyers.'}
           </p>
@@ -400,17 +409,17 @@ export const ReviewPublishScreen: React.FC<ReviewPublishScreenProps> = ({
             {isPublishing ? (
               <>
                 <span className="material-symbols-outlined animate-spin text-[22px]">progress_activity</span>
-                <span>{isHindi ? 'ONDC पर प्रसारित हो रहा है...' : 'Broadcasting to ONDC & Kalamitra...'}</span>
+                <span>{isTamil ? 'ONDC-க்கு அனுப்பப்படுகிறது...' : isHindi ? 'ONDC पर प्रसारित हो रहा है...' : 'Broadcasting to ONDC & Kalamitra...'}</span>
               </>
             ) : published ? (
               <>
                 <span className="material-symbols-outlined text-[22px]">check_circle</span>
-                <span>{isHindi ? 'सफलतापूर्वक प्रकाशित हुआ! 🎉' : 'Published Successfully! 🎉'}</span>
+                <span>{isTamil ? 'வெற்றிகரமாக வெளியிடப்பட்டது! 🎉' : isHindi ? 'सफलतापूर्वक प्रकाशित हुआ! 🎉' : 'Published Successfully! 🎉'}</span>
               </>
             ) : (
               <>
                 <span className="material-symbols-outlined text-[22px]">rocket_launch</span>
-                <span>{isHindi ? 'स्वीकृत करें और बाज़ार में प्रकाशित करें' : 'Approve & Publish to Marketplace'}</span>
+                <span>{isTamil ? 'ஏற்றுக்கொண்டு சந்தையில் வெளியிடவும்' : isHindi ? 'स्वीकृत करें और बाज़ार में प्रकाशित करें' : 'Approve & Publish to Marketplace'}</span>
               </>
             )}
           </button>
@@ -421,7 +430,7 @@ export const ReviewPublishScreen: React.FC<ReviewPublishScreenProps> = ({
             className="w-full h-12 rounded-full bg-[#e5e9e4] hover:bg-[#dfe4df] text-[#181d1a] text-[14px] font-semibold flex items-center justify-center gap-2 active:bg-[#dfe4df] transition-colors cursor-pointer"
           >
             <span className="material-symbols-outlined text-[#9f3c16] text-[20px]">mic</span>
-            <span>{isHindi ? 'आवाज़ से सुधारें' : 'Edit with Voice'}</span>
+            <span>{isTamil ? 'குரல் மூலம் திருத்தவும்' : isHindi ? 'आवाज़ से सुधारें' : 'Edit with Voice'}</span>
           </button>
         </div>
       </div>

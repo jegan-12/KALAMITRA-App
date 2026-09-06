@@ -19,6 +19,7 @@ export const PhotoEnhancerScreen: React.FC<PhotoEnhancerScreenProps> = ({
   const isDragging = useRef(false);
 
   const isHindi = language === 'hi';
+  const isTamil = language === 'ta';
 
   const handlePointerDown = (e: React.PointerEvent) => {
     isDragging.current = true;
@@ -45,7 +46,9 @@ export const PhotoEnhancerScreen: React.FC<PhotoEnhancerScreenProps> = ({
 
   const handleListenGuide = () => {
     speakText(
-      isHindi
+      isTamil
+        ? 'பட்டறை பின்னணியை அகற்றி, இயற்கை ஸ்டுடியோ ஒளியைச் சேர்த்துள்ளோம். கைவினை வேலைப்பாடுகள் துல்லியமாகவும் பளபளப்பின்றியும் பாதுகாக்கப்பட்டுள்ளன.'
+        : isHindi
         ? 'हमने आपकी कार्यशाला की अव्यवस्था हटा दी है और प्राकृतिक ५००० केल्विन स्टूडियो रोशनी जोड़ दी है। धातु की चमक और बनावट बिल्कुल प्राकृतिक है।'
         : 'We removed your workshop clutter and infused balanced 5000K natural daylight. All brass engravings and lost-wax Dhokra ridges are preserved with zero glare.',
       language
@@ -65,10 +68,12 @@ export const PhotoEnhancerScreen: React.FC<PhotoEnhancerScreenProps> = ({
           </span>
         </div>
         <h2 className="text-[22px] font-bold text-[#181d1a] mt-1 leading-snug">
-          {isHindi ? 'AI स्टूडियो फोटोग्राफी जादू' : 'AI Studio Photography Magic'}
+          {isTamil ? 'AI ஸ்டுடியோ புகைப்படம்' : isHindi ? 'AI स्टूडियो फोटोग्राफी जादू' : 'AI Studio Photography Magic'}
         </h2>
         <p className="text-[14px] text-[#57423b]">
-          {isHindi
+          {isTamil
+            ? 'இயற்கை பகல் வெளிச்சம் மற்றும் தெளிவான அமைப்புகளுடன் உங்கள் கைவினைப் படத்தை இ-காமர்ஸ் தரத்திற்கு உயர்த்தவும்.'
+            : isHindi
             ? 'कार्यशाला की सामान्य तस्वीरों को प्राकृतिक रोशनी और साफ़ बनावट वाली ई-कॉमर्स लिस्टिंग में बदलें।'
             : 'Turn rustic workshop snaps into pristine e-commerce listings with balanced daylight and crisp textures.'}
         </p>
@@ -109,7 +114,7 @@ export const PhotoEnhancerScreen: React.FC<PhotoEnhancerScreenProps> = ({
           <div className="absolute top-3 right-3 z-10 px-2.5 py-1 rounded-lg bg-[#d7dbd6]/90 backdrop-blur-md shadow-sm pointer-events-none">
             <span className="text-[12px] text-[#181d1a] font-semibold flex items-center gap-1">
               <span className="w-2 h-2 rounded-full bg-[#8a726a]" />
-              {isHindi ? 'मूल (पहले)' : 'Original (Before)'}
+              {isTamil ? 'முதலில் (முன்பு)' : isHindi ? 'मूल (पहले)' : 'Original (Before)'}
             </span>
           </div>
 
@@ -117,7 +122,7 @@ export const PhotoEnhancerScreen: React.FC<PhotoEnhancerScreenProps> = ({
           <div className="absolute top-3 left-3 z-10 px-2.5 py-1 rounded-lg bg-[#2c694e]/90 backdrop-blur-md text-white shadow-sm pointer-events-none">
             <span className="text-[12px] font-semibold flex items-center gap-1">
               <span className="material-symbols-outlined text-[14px]">auto_awesome</span>
-              {isHindi ? 'AI स्टूडियो (बाद में)' : 'AI Studio (After)'}
+              {isTamil ? 'AI ஸ்டுடியோ (பின்பு)' : isHindi ? 'AI स्टूडियो (बाद में)' : 'AI Studio (After)'}
             </span>
           </div>
 
@@ -314,7 +319,7 @@ export const PhotoEnhancerScreen: React.FC<PhotoEnhancerScreenProps> = ({
           onClick={onContinue}
           className="w-full h-14 rounded-full bg-[#9f3c16] hover:bg-[#bf542c] text-white text-[16px] font-bold flex items-center justify-center gap-2 shadow-md active:scale-[0.98] transition-all cursor-pointer"
         >
-          <span>{isHindi ? 'यह संवर्धित फोटो रखें और आगे बढ़ें' : 'Keep Enhanced Photo & Continue'}</span>
+          <span>{isTamil ? 'மேம்படுத்திய புகைப்படத்தை வைத்து தொடரவும்' : isHindi ? 'यह संवर्धित फोटो रखें और आगे बढ़ें' : 'Keep Enhanced Photo & Continue'}</span>
           <span className="material-symbols-outlined text-[22px]">arrow_forward</span>
         </button>
 
@@ -324,7 +329,7 @@ export const PhotoEnhancerScreen: React.FC<PhotoEnhancerScreenProps> = ({
           className="w-full h-13 rounded-full bg-[#e5e9e4] hover:bg-[#dfe4df] text-[#9f3c16] text-[15px] font-bold flex items-center justify-center gap-2 active:scale-[0.98] transition-all cursor-pointer"
         >
           <span className="material-symbols-outlined text-[20px]">photo_camera</span>
-          <span>{isHindi ? 'वॉइस गाइड के साथ दोबारा फोटो लें' : 'Re-take Photo with Voice Guide'}</span>
+          <span>{isTamil ? 'குரல் வழிகாட்டியுடன் மீண்டும் புகைப்படம் எடுக்கவும்' : isHindi ? 'वॉइस गाइड के साथ दोबारा फोटो लें' : 'Re-take Photo with Voice Guide'}</span>
         </button>
       </div>
     </div>

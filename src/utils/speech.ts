@@ -2,7 +2,9 @@
  * Speech synthesis and voice assistance utilities for Kalamitra
  */
 
-export const speakText = (text: string, lang: 'en' | 'hi' | 'gu' = 'en') => {
+import { Language } from '../types';
+
+export const speakText = (text: string, lang: Language = 'en') => {
   if (typeof window === 'undefined') return;
 
   if ('speechSynthesis' in window) {
@@ -17,6 +19,8 @@ export const speakText = (text: string, lang: 'en' | 'hi' | 'gu' = 'en') => {
       preferredVoice = voices.find(v => v.lang.includes('hi') || v.name.includes('Hindi'));
     } else if (lang === 'gu') {
       preferredVoice = voices.find(v => v.lang.includes('gu') || v.name.includes('Gujarati'));
+    } else if (lang === 'ta') {
+      preferredVoice = voices.find(v => v.lang.includes('ta') || v.name.includes('Tamil'));
     } else {
       preferredVoice = voices.find(v => v.lang.includes('en-IN') || (v.lang.includes('en') && !v.name.includes('David')));
     }

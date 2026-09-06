@@ -30,6 +30,10 @@ export default function App() {
     speakText(
       language === 'hi'
         ? 'कैटलॉग स्टूडियो में आपका स्वागत है। अपने शिल्प के बारे में खुलकर बताएं।'
+        : language === 'gu'
+        ? 'કેટલોગ સ્ટુડિયોમાં આપનું સ્વાગત છે. તમારા શિલ્પ વિશે મુક્તપણે જણાવો.'
+        : language === 'ta'
+        ? 'கலாமித்ரா குரல் ஸ்டுடியோவிற்கு வரவேற்கிறோம். உங்கள் கைவினைப்பொருள் பற்றி இயல்பாகப் பேசுங்கள்.'
         : 'Welcome to Kalamitra Voice Studio. Speak naturally about your craft.',
       language
     );
@@ -49,6 +53,8 @@ export default function App() {
       <div className="w-full max-w-md min-h-screen bg-[#f6fbf5] flex flex-col relative shadow-2xl">
         {/* Global App Header */}
         <Header
+          currentTab={currentTab}
+          onTabChange={(tab) => setCurrentTab(tab)}
           language={language}
           onLanguageChange={(lang) => {
             setLanguage(lang);
@@ -57,6 +63,8 @@ export default function App() {
                 ? 'भाषा बदलकर हिन्दी कर दी गई है।' 
                 : lang === 'gu'
                 ? 'ભાષા ગુજરાતીમાં બદલાઈ ગઈ છે.'
+                : lang === 'ta'
+                ? 'மொழி தமிழாக மாற்றப்பட்டது.'
                 : 'Language set to English.',
               lang
             );
@@ -67,6 +75,8 @@ export default function App() {
             speakText(
               language === 'hi'
                 ? 'आपके पास २ नए अपडेट हैं: ओ एन डी सी पर आपकी लिस्टिंग सक्रिय है और खरीदार ने पूछताछ की है।'
+                : language === 'ta'
+                ? 'உங்களுக்கு 2 புதிய புதுப்பிப்புகள் உள்ளன: உங்கள் ONDC பட்டியல் நேரலையில் உள்ளது, மேலும் வாங்குபவர் விவரங்களைக் கேட்டுள்ளார்.'
                 : 'You have 2 updates: Your ONDC listing is active, and a buyer inquired about custom sizing.',
               language
             );
@@ -95,6 +105,8 @@ export default function App() {
                 speakText(
                   language === 'hi'
                     ? 'AI ने आपके विवरण निकाल लिए हैं। कृपया जांचें।'
+                    : language === 'ta'
+                    ? 'AI உங்கள் கைவினை விவரங்களை எடுத்துள்ளது. தயவுசெய்து சரிபார்க்கவும்.'
                     : 'AI has extracted your craft specifications. Please review the details.',
                   language
                 );
@@ -111,13 +123,19 @@ export default function App() {
                 speakText(
                   language === 'hi'
                     ? 'फोटो संवर्धन स्टूडियो में आपका स्वागत है।'
+                    : language === 'ta'
+                    ? 'புகைப்பட மேம்பாட்டு ஸ்டுடியோவிற்கு வரவேற்கிறோம்.'
                     : 'Welcome to AI Studio Photography Enhancer.',
                   language
                 );
               }}
               onSaveDraft={() => {
                 speakText(
-                  language === 'hi' ? 'कैटलॉग ड्राफ्ट सहेज लिया गया।' : 'Catalog draft saved successfully.',
+                  language === 'hi'
+                    ? 'कैटलॉग ड्राफ्ट सहेज लिया गया।'
+                    : language === 'ta'
+                    ? 'கைவினை வரைவு வெற்றிகரமாக சேமிக்கப்பட்டது.'
+                    : 'Catalog draft saved successfully.',
                   language
                 );
                 setCurrentTab('home');
@@ -133,6 +151,8 @@ export default function App() {
                 speakText(
                   language === 'hi'
                     ? 'उचित मूल्य सलाहकार में आपका स्वागत है।'
+                    : language === 'ta'
+                    ? 'நியாயமான விலை ஆலோசனைக்கு வரவேற்கிறோம்.'
                     : 'Welcome to Fair Price Advisory.',
                   language
                 );
@@ -141,6 +161,8 @@ export default function App() {
                 speakText(
                   language === 'hi'
                     ? 'कैमरा खोल रहा हूँ। वस्तु को अच्छी रोशनी में रखें।'
+                    : language === 'ta'
+                    ? 'கேமராவைத் திறக்கிறது. பொருளை நல்ல வெளிச்சத்தில் வைக்கவும்.'
                     : 'Opening camera. Ensure the craft is in clear lighting.',
                   language
                 );
@@ -157,13 +179,19 @@ export default function App() {
                 speakText(
                   language === 'hi'
                     ? `मूल्य ₹${price} तय किया गया। अब समीक्षा करें।`
+                    : language === 'ta'
+                    ? `விலை ₹${price} என நிர்ணயிக்கப்பட்டது. இறுதி மதிப்பாய்வுக்கு தயார்.`
                     : `Price set to ₹${price}. Ready for final review.`,
                   language
                 );
               }}
               onSetCustomPrice={() => {
                 const custom = prompt(
-                  language === 'hi' ? 'कस्टम मूल्य दर्ज करें (₹):' : 'Enter custom price (₹):',
+                  language === 'hi'
+                    ? 'कस्टम मूल्य दर्ज करें (₹):'
+                    : language === 'ta'
+                    ? 'தனிப்பயன் விலையை உள்ளிடவும் (₹):'
+                    : 'Enter custom price (₹):',
                   '1850'
                 );
                 if (custom && !isNaN(Number(custom))) {

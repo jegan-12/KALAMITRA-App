@@ -20,6 +20,7 @@ export const ExtractedCatalogScreen: React.FC<ExtractedCatalogScreenProps> = ({
   const [voiceAdjustActive, setVoiceAdjustActive] = useState(false);
 
   const isHindi = language === 'hi';
+  const isTamil = language === 'ta';
 
   const toggleAudio = () => {
     if (isPlayingAudio) {
@@ -30,7 +31,9 @@ export const ExtractedCatalogScreen: React.FC<ExtractedCatalogScreenProps> = ({
     } else {
       setIsPlayingAudio(true);
       speakText(
-        isHindi
+        isTamil
+          ? 'இந்த மண் குவளை கட்ச் சிவப்பு களிமண்ணால் கைவினை முறையில் செய்யப்பட்டது. உயரம் 25 செமீ, அகலம் 18 செமீ, எடை சுமார் 1.4 கிலோ.'
+          : isHindi
           ? 'यह मिट्टी का फूलदान कच्छ की लाल चिकनी मिट्टी से बना है। ऊंचाई २५ सेंटीमीटर, चौड़ाई १८ सेंटीमीटर और वजन लगभग १.४ किलोग्राम है।'
           : 'This is an earthen terracotta pot handcrafted on the potter wheel using Kutch red clay with tribal etched patterns. Height is 25 cm, width 18 cm, weight 1.4 kg.',
         language
@@ -41,7 +44,9 @@ export const ExtractedCatalogScreen: React.FC<ExtractedCatalogScreenProps> = ({
 
   const handleFieldMic = (fieldName: string) => {
     speakText(
-      isHindi 
+      isTamil
+        ? `${fieldName} பற்றி பேசவும்...`
+        : isHindi 
         ? `${fieldName} के लिए बोलें...` 
         : `Listening for ${fieldName}...`,
       language
@@ -60,10 +65,10 @@ export const ExtractedCatalogScreen: React.FC<ExtractedCatalogScreenProps> = ({
               </span>
               <div className="flex flex-col min-w-0">
                 <span className="text-[16px] font-bold text-[#181d1a] truncate">
-                  {isHindi ? 'कैटलॉग ३.२ सेकंड में तैयार' : 'Catalog Extracted in 3.2s'}
+                  {isTamil ? 'பட்டியல் 3.2 வினாடிகளில் பெறப்பட்டது' : isHindi ? 'कैटलॉग ३.२ सेकंड में तैयार' : 'Catalog Extracted in 3.2s'}
                 </span>
                 <span className="text-[12px] text-[#2c694e] font-medium">
-                  {isHindi ? 'आवाज़ विवरण से स्वतः उत्पन्न' : 'Auto-generated from voice narration in 3.2s'}
+                  {isTamil ? 'குரல் விவரிப்பிலிருந்து தானாக உருவாக்கப்பட்டது' : isHindi ? 'आवाज़ विवरण से स्वतः उत्पन्न' : 'Auto-generated from voice narration in 3.2s'}
                 </span>
               </div>
             </div>
@@ -342,14 +347,14 @@ export const ExtractedCatalogScreen: React.FC<ExtractedCatalogScreenProps> = ({
           type="button"
           onClick={() => {
             setVoiceAdjustActive(!voiceAdjustActive);
-            speakText(isHindi ? 'बताएं, आप क्या सुधारना चाहते हैं?' : 'Tell me what you would like to adjust.', language);
+            speakText(isTamil ? 'எந்த விவரத்தை மாற்ற வேண்டும் என்று சொல்லுங்கள்.' : isHindi ? 'बताएं, आप क्या सुधारना चाहते हैं?' : 'Tell me what you would like to adjust.', language);
           }}
           className={`w-full h-12 rounded-full shadow-sm flex items-center justify-center gap-2 font-bold text-[15px] transition-all cursor-pointer ${
             voiceAdjustActive ? 'bg-[#9f3c16] text-white' : 'bg-white text-[#9f3c16] hover:bg-[#ffdbcf] border border-[#dec0b7]'
           }`}
         >
           <span className="material-symbols-outlined text-[22px]">mic</span>
-          <span>{isHindi ? 'कोई भी विवरण सुधारने के लिए बोलें' : 'Speak to adjust any detail'}</span>
+          <span>{isTamil ? 'விவரங்களை திருத்த குரலால் கூறவும்' : isHindi ? 'कोई भी विवरण सुधारने के लिए बोलें' : 'Speak to adjust any detail'}</span>
         </button>
 
         {/* Primary & Secondary CTA Stack */}
@@ -360,7 +365,7 @@ export const ExtractedCatalogScreen: React.FC<ExtractedCatalogScreenProps> = ({
             className="h-14 px-4 rounded-full bg-[#dfe4df] hover:bg-[#d7dbd6] text-[#181d1a] text-[15px] font-bold flex items-center justify-center active:scale-95 transition-transform shrink-0 cursor-pointer"
           >
             <span className="material-symbols-outlined text-[20px] mr-1">bookmark</span>
-            <span>{isHindi ? 'ड्राफ्ट सहेजें' : 'Save Draft'}</span>
+            <span>{isTamil ? 'வரைவு சேமி' : isHindi ? 'ड्राफ्ट सहेजें' : 'Save Draft'}</span>
           </button>
 
           <button
@@ -368,7 +373,7 @@ export const ExtractedCatalogScreen: React.FC<ExtractedCatalogScreenProps> = ({
             onClick={onProceedToPhoto}
             className="flex-1 h-14 rounded-full bg-[#9f3c16] hover:bg-[#bf542c] text-white text-[15px] font-bold shadow-lg flex items-center justify-center gap-2 active:scale-[0.98] transition-all cursor-pointer"
           >
-            <span>{isHindi ? 'फोटो सुशोभन पर जाएं' : 'Proceed to Image Enhancement'}</span>
+            <span>{isTamil ? 'பட மேம்பாட்டுக்கு செல்லவும்' : isHindi ? 'फोटो सुशोभन पर जाएं' : 'Proceed to Image Enhancement'}</span>
             <span className="material-symbols-outlined text-[20px]">arrow_forward</span>
           </button>
         </div>

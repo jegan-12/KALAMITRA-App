@@ -23,6 +23,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
   onNavigate,
 }) => {
   const isHindi = language === 'hi';
+  const isTamil = language === 'ta';
 
   const handleStartVoice = () => {
     if (onStartVoiceStudio) {
@@ -51,7 +52,9 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
   };
 
   const handleGreetingAudio = () => {
-    if (isHindi) {
+    if (isTamil) {
+      speakText('வணக்கம் சாந்தி தேவி. குஜராத் கட்ச் கைவினை பாரம்பரிய ஸ்டுடியோவிற்கு வரவேற்கிறோம். புதிய கைவினைப்பொருளை சேர்க்க மைக்கை அழுத்தவும்.', 'ta');
+    } else if (isHindi) {
       speakText('नमस्ते शांति देवी। कच्छ गुजरात के आपके शिल्प विरासत स्टूडियो में आपका स्वागत है। बोलकर नया शिल्प जोड़ने के लिए माइक दबाएं।', 'hi');
     } else {
       speakText('Welcome, Shanti Devi. Master Terracotta Artisan at Craft Heritage Studio, Kutch, Gujarat. Tap Start Speaking to catalog a new craft.', 'en');
@@ -60,9 +63,11 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
 
   const handleTutorialAudio = () => {
     speakText(
-      isHindi
+      isTamil
+        ? 'கலாமித்ராவிற்கு வரவேற்கிறோம். உங்கள் கைவினைப்பொருள் பற்றி தமிழில் பேசலாம். AI தானாகவே பரிமாணங்கள், மூலப்பொருட்கள், நியாயமான விலை ஆகியவற்றைத் தயாரித்து ONDC-க்கு அனுப்பும்.'
+        : isHindi
         ? 'कला मित्र में आपका स्वागत है। आप अपनी क्षेत्रीय भाषा में बोल सकते हैं। हम आपके शिल्प की तस्वीर, विवरण और उचित मूल्य अपने आप तैयार करेंगे।'
-        : 'Welcome to Kalamitra. Simply speak about your craft in Hindi, Gujarati, or English. Our AI automatically extracts dimensions, raw materials, fair pricing, and exports to ONDC.',
+        : 'Welcome to Kalamitra. Simply speak about your craft in Hindi, Gujarati, Tamil, or English. Our AI automatically extracts dimensions, raw materials, fair pricing, and exports to ONDC.',
       language
     );
   };
@@ -88,10 +93,10 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
               </span>
             </div>
             <h1 className="text-[26px] leading-[34px] tracking-tight font-bold text-[#181d1a]">
-              {isHindi ? `स्वागत है, ${ARTISAN_PROFILE.nameHi}` : `Welcome, ${ARTISAN_PROFILE.name}`}
+              {isTamil ? `வணக்கம், சாந்தி தேவி` : isHindi ? `स्वागत है, ${ARTISAN_PROFILE.nameHi}` : `Welcome, ${ARTISAN_PROFILE.name}`}
             </h1>
             <p className="text-[13px] text-[#57423b] mt-0.5 leading-snug">
-              {isHindi ? ARTISAN_PROFILE.titleHi : ARTISAN_PROFILE.title}
+              {isTamil ? 'முதன்மை சுடுமண் கைவினைஞர் • கைவினை பாரம்பரிய ஸ்டுடியோ' : isHindi ? ARTISAN_PROFILE.titleHi : ARTISAN_PROFILE.title}
             </p>
           </div>
 
@@ -115,10 +120,10 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
           </div>
           <div className="flex flex-col min-w-0 flex-1">
             <span className="text-[12px] text-[#9f3c16] uppercase font-bold tracking-wider">
-              {isHindi ? 'कला मित्र वाणी' : 'Voice Assistant'}
+              {isTamil ? 'குரல் உதவியாளர்' : isHindi ? 'कला मित्र वाणी' : 'Voice Assistant'}
             </span>
             <span className="text-[13px] text-[#181d1a] truncate font-semibold">
-              {isHindi ? 'बोलें "नया शिल्प जोड़ें" या यहाँ दबाएं' : 'Say "Add new craft" or tap here'}
+              {isTamil ? '"புதிய கைவினை சேர்க்க" என்று சொல்லுங்கள்' : isHindi ? 'बोलें "नया शिल्प जोड़ें" या यहाँ दबाएं' : 'Say "Add new craft" or tap here'}
             </span>
           </div>
           <span className="material-symbols-outlined text-[#8a726a] text-[20px]">arrow_forward</span>
@@ -132,16 +137,18 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
           <div className="inline-flex items-center gap-1.5 self-start px-2.5 py-1 rounded-full bg-white/15 backdrop-blur-md">
             <span className="w-2.5 h-2.5 rounded-full bg-[#b1f0ce] animate-ping" />
             <span className="text-[12px] text-white font-bold tracking-wide">
-              {isHindi ? 'AI वॉइस स्टूडियो • टाइपिंग की जरूरत नहीं' : 'AI Voice Studio • No Typing Needed'}
+              {isTamil ? 'AI குரல் ஸ்டுடியோ • தட்டச்சு தேவையில்லை' : isHindi ? 'AI वॉइस स्टूडियो • टाइपिंग की जरूरत नहीं' : 'AI Voice Studio • No Typing Needed'}
             </span>
           </div>
           <h2 className="text-[24px] leading-tight font-bold text-white mt-1">
-            {isHindi ? 'अपनी आवाज़ से शिल्प जोड़ें' : 'Describe Your Craft with Voice'}
+            {isTamil ? 'உங்கள் குரலால் கைவினைகளைச் சேர்க்கவும்' : isHindi ? 'अपनी आवाज़ से शिल्प जोड़ें' : 'Describe Your Craft with Voice'}
           </h2>
           <p className="text-[13px] text-white/85 leading-relaxed mt-1">
-            {isHindi
+            {isTamil
+              ? 'தட்டச்சு செய்ய வேண்டியதில்லை. தமிழ், இந்தி அல்லது ஆங்கிலத்தில் பேசுங்கள். AI விவரக்குறிப்புகள், நியாய விலை ஆகியவற்றைத் தயாரித்து ONDC-க்கு மாற்றும்.'
+              : isHindi
               ? 'लिखने की जरूरत नहीं। हिन्दी, गुजराती, कच्छी या अंग्रेज़ी में बोलें। AI विवरण, टैग और उचित मूल्य तैयार करके ONDC पर भेज देगा।'
-              : 'No typing needed. Speak in Hindi, Gujarati, Kutchi, or English. AI drafts specs, tags, fair pricing, and exports to ONDC.'}
+              : 'No typing needed. Speak in Hindi, Gujarati, Tamil, or English. AI drafts specs, tags, fair pricing, and exports to ONDC.'}
           </p>
         </div>
 
@@ -154,7 +161,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
             <span className="material-symbols-outlined text-[26px] text-[#9f3c16]" style={{ fontVariationSettings: "'FILL' 1" }}>
               mic
             </span>
-            <span>{isHindi ? 'बोलना शुरू करें' : 'Start Speaking'}</span>
+            <span>{isTamil ? 'பேசத் தொடங்குங்கள்' : isHindi ? 'बोलना शुरू करें' : 'Start Speaking'}</span>
           </button>
 
           <button
@@ -175,13 +182,13 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
           <span className="material-symbols-outlined text-[16px]">lightbulb</span>
         </div>
         <span className="text-[13px] truncate flex-1">
-          <strong className="text-[#181d1a]">{isHindi ? 'सलाह: ' : 'Tip: '}</strong>
-          {isHindi ? 'मिट्टी का प्रकार, पकाने की विधि और माप बताएं।' : 'Mention clay type, firing method & dimensions.'}
+          <strong className="text-[#181d1a]">{isTamil ? 'குறிப்பு: ' : isHindi ? 'सलाह: ' : 'Tip: '}</strong>
+          {isTamil ? 'களிமண் வகை, சூளை முறை மற்றும் அளவைக் குறிப்பிடவும்.' : isHindi ? 'मिट्टी का प्रकार, पकाने की विधि और माप बताएं।' : 'Mention clay type, firing method & dimensions.'}
         </span>
         <button
           type="button"
           aria-label="Tip info"
-          onClick={() => speakText(isHindi ? 'सलाह: अपने शिल्प की मिट्टी का प्रकार, पकाने की विधि और नाप बताएं।' : 'Tip: Mention clay type, firing method and dimensions for higher buyer trust.', language)}
+          onClick={() => speakText(isTamil ? 'குறிப்பு: அதிக வாங்குபவர் நம்பிக்கைக்கு களிமண் வகை, சூளை முறை மற்றும் அளவைக் குறிப்பிடவும்.' : isHindi ? 'सलाह: अपने शिल्प की मिट्टी का प्रकार, पकाने की विधि और नाप बताएं।' : 'Tip: Mention clay type, firing method and dimensions for higher buyer trust.', language)}
           className="material-symbols-outlined text-[#8a726a] text-[18px] cursor-pointer hover:text-[#9f3c16]"
         >
           volume_up
@@ -200,7 +207,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
             {ARTISAN_PROFILE.activeCrafts}
           </span>
           <span className="text-[12px] text-[#57423b] truncate mt-1">
-            {isHindi ? 'सक्रिय शिल्प' : 'Active Crafts'}
+            {isTamil ? 'நேரலை கைவினை' : isHindi ? 'सक्रिय शिल्प' : 'Active Crafts'}
           </span>
         </div>
 
@@ -214,9 +221,9 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
             ₹{(ARTISAN_PROFILE.monthlyEarnings / 1000).toFixed(1)}k
           </span>
           <span className="text-[12px] text-[#57423b] truncate mt-1">
-            {isHindi ? 'मासिक कमाई' : 'Monthly Earnings'}
+            {isTamil ? 'மாத வருவாய்' : isHindi ? 'मासिक कमाई' : 'Monthly Earnings'}
           </span>
-          <span className="text-[11px] font-bold text-[#2c694e] truncate">+15% {isHindi ? 'वृद्धि' : 'growth'}</span>
+          <span className="text-[11px] font-bold text-[#2c694e] truncate">+15% {isTamil ? 'வளர்ச்சி' : isHindi ? 'वृद्धि' : 'growth'}</span>
         </div>
 
         {/* Offline Queue */}
@@ -229,10 +236,10 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
             {ARTISAN_PROFILE.offlineSyncQueue}
           </span>
           <span className="text-[12px] text-[#57423b] truncate mt-1">
-            {isHindi ? 'सिंक कतार' : 'Sync Queue'}
+            {isTamil ? 'ஒத்திசைவு' : isHindi ? 'सिंक कतार' : 'Sync Queue'}
           </span>
           <span className="text-[11px] font-bold text-[#7b542b] truncate">
-            {isHindi ? 'सुरक्षित ड्राफ्ट' : 'Offline saved'}
+            {isTamil ? 'சேமிக்கப்பட்டது' : isHindi ? 'सुरक्षित ड्राफ्ट' : 'Offline saved'}
           </span>
         </div>
       </div>
@@ -243,11 +250,11 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
           <div className="flex items-center gap-1.5">
             <span className="material-symbols-outlined text-[#2c694e] text-[20px]">workspace_premium</span>
             <span className="text-[14px] text-[#181d1a] font-bold">
-              {isHindi ? 'कैटलॉग गुणवत्ता स्कोर' : 'Catalog Health'}
+              {isTamil ? 'பட்டியல் தரம்' : isHindi ? 'कैटलॉग गुणवत्ता स्कोर' : 'Catalog Health'}
             </span>
           </div>
           <span className="text-[14px] text-[#2c694e] font-bold">
-            {ARTISAN_PROFILE.catalogHealth}% ({isHindi ? 'शीर्ष श्रेणी' : 'Top Tier'})
+            {ARTISAN_PROFILE.catalogHealth}% ({isTamil ? 'உயர்தரம்' : isHindi ? 'शीर्ष श्रेणी' : 'Top Tier'})
           </span>
         </div>
 
@@ -261,7 +268,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
 
         <div className="flex items-center justify-between mt-1">
           <span className="text-[13px] text-[#57423b]">
-            {isHindi ? 'उच्च खरीदार विश्वास • अंतरराष्ट्रीय निर्यात के लिए तैयार' : 'High buyer trust • Ready for international exports'}
+            {isTamil ? 'அதிக வாங்குபவர் நம்பிக்கை • ஏற்றுமதிக்கு தயார்' : isHindi ? 'उच्च खरीदार विश्वास • अंतरराष्ट्रीय निर्यात के लिए तैयार' : 'High buyer trust • Ready for international exports'}
           </span>
           <span className="material-symbols-outlined text-[#2c694e] text-[18px]">verified</span>
         </div>
@@ -271,14 +278,14 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
       <div className="flex flex-col gap-2 mt-1">
         <div className="flex items-center justify-between">
           <h2 className="text-[18px] text-[#181d1a] font-bold">
-            {isHindi ? 'हालिया शिल्प' : 'Recent Crafts'}
+            {isTamil ? 'சமீபத்திய கைவினை' : isHindi ? 'हालिया शिल्प' : 'Recent Crafts'}
           </h2>
           <button
             type="button"
             onClick={handleViewAll}
             className="text-[14px] text-[#9f3c16] font-bold flex items-center hover:underline cursor-pointer"
           >
-            <span>{isHindi ? 'सभी देखें' : 'View All'}</span>
+            <span>{isTamil ? 'அனைத்தையும் காண்க' : isHindi ? 'सभी देखें' : 'View All'}</span>
             <span className="material-symbols-outlined text-[18px]">chevron_right</span>
           </button>
         </div>
