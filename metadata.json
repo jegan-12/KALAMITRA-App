@@ -1,0 +1,6 @@
+{
+  "name": "Kalamitra",
+  "description": "Voice-first AI craft cataloging, fair pricing advisory, studio photography enhancer, and ONDC marketplace for Indian artisans.",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
